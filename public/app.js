@@ -1,6 +1,24 @@
 //Grab articles as a Json 
+$( window ).on( "load", function() {
+ getJ();
+});
 
-
+$("#scrapebtn" ).on( "click", function(event) {
+  event.preventDefault();
+  $.ajax({
+    method: "GET",
+    url: "/scrape"
+  })
+    // With that done, add the note information to the page
+    .then(function(data) {
+     alert("Scrape Complete");
+     getJ();
+  
+ });
+ 
+});
+  
+function getJ(){
     $.getJSON("/articles", function (data) {
       // res.JSON(data);
       for (var i = 0; i < data.length; i++) {
@@ -10,25 +28,34 @@
         articleDiv.attr('class', 'card rounded card-body');
 
         var articleTitle = $('<p>');
-        articleTitle.attr('class', 'card-text text-center text-wrap card-header');
+        articleTitle.attr('class', 'card-text text-center text-wrap card-title');
         articleTitle.attr('data-id', data[i]._id);
         articleTitle.attr('id', data[i].title);
         articleTitle.text(data[i].title);
         articleDiv.append(articleTitle);
+
+        var articleSummary = $('<p>');
+        articleSummary.attr('class', 'card-text text-center text-wrap card-subtitle');
+        articleSummary.attr('data-id', data[i]._id);
+        articleSummary.attr('id', data[i].summary);
+        articleSummary.text(data[i].summary);
+        articleTitle.append(articleSummary);
 
         var articleLink = $("<a>");
         articleLink.attr('href',data[i].link);
         articleLink.attr('class','btn-danger');
         articleLink.text("Click here to read article");
         articleLink.css("font-size", "12px");
+        articleLink.css("display", "block");
 
-        $(articleTitle).append(articleLink);
+        $(articleSummary).append(articleLink);
 
 
         $("#articles").append(articleDiv);
       }
       $("#articleDiv").css("display", "block");
     });
+  }
 
   // Whenever someone clicks a h4 tag
 $(document).on("click", "p", function() {
@@ -46,55 +73,19 @@ $(document).on("click", "p", function() {
     .then(function(data) {
       console.log(data);
 
-      var notesDiv = $('<div>');
+     var notesDiv = $('<div>');
       notesDiv.attr('data-id', data._id);
       notesDiv.attr('class', 'card rounded card-body');
-
-      var articleTitle = $('<p>');
-      articleTitle.attr('class', 'card-text text-center text-wrap card-header');
-      articleTitle.attr('data-id', data._id);
-      articleTitle.attr('id', data.title);
-      articleTitle.text(data.title);
-      notesDiv.append(articleTitle);
-
-      var dataTitle = $('<textarea>');
-      dataTitle.attr('class', 'card-text text-center text-wrap card-header texthead');
-      dataTitle.attr('data-id', data._id);
-      dataTitle.attr('id', data.title);
-      dataTitle.attr('id', 'header');
-      dataTitle.attr('input-id', 'titleinput');
-      dataTitle.attr('name', 'title');
-      // dataTitle.text(data.title);
-      articleTitle.append(dataTitle);
-
-      var textarea = $('<textarea>');
-      textarea.attr('class', 'card-text text-center text-wrap card-header bodytext ');
-      textarea.attr('data-id', data._id);
-      textarea.attr('id', 'bodyinput');
-      textarea.attr('name', 'body');
-      dataTitle.append(textarea);
-
-      var button =$('<btn>');
-      button.attr('data-id', data._id);
-      button.attr('id', 'savenote');
-      button.attr('id', 'dark');
-      button.text('Save Note');
-      textarea.append(button);
-
+      $(notesDiv).append("<h5>" + data.title + "</h2>");
+      // An input to enter a new title
+      $(notesDiv).append("<input id='titleinput' name='title' >");
+      // A textarea to add a new note body
+      $(notesDiv).append("<textarea id='bodyinput' name='body'></textarea>");
+      // A button to submit a new note, with the id of the article saved to it
+      $(notesDiv).append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
       $("#notes").append(notesDiv);
-    
 
-
-      // $("#articles").append(notesDiv);
-      // // The title of the article
-      // $("#notes").append("<h5>" + data.title + "</h2>");
-      // // An input to enter a new title
-      // $("#notes").append("<input id='titleinput' name='title' >");
-      // // A textarea to add a new note body
-      // $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-      // // A button to submit a new note, with the id of the article saved to it
-      // $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
       // If there's a note in the article
       if (data.note) {
@@ -134,7 +125,6 @@ $(document).on("click", "#savenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
-//from homework:
-      // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+
 
       

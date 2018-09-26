@@ -42,8 +42,8 @@ var $ = cheerio.load(response.data);
   $("article.css-180b3ld").each(function (i, element) {
         // Add the text and href of every link, and save them as properties of the result object
         var link = "https://www.nytimes.com" + $(element).find("a").attr("href");
-        var title = $(element).children().text();
-        var summary = $(element).find("sum");
+        var summary = $(element).children().text();
+        var title = $(element).find("p").text();
         var img = $(element).find("img").attr('src');
         //create a new article based on the scrape "result" created above
         db.Article.create({
