@@ -17,12 +17,17 @@ link: {
 },
 summary: {
     type: String,
-    required: true 
+    required: false
 },
 note: {
     type: Schema.Types.ObjectId,
     ref: "Note"
+},
+imgageURL: {
+    type: String,
+    required: false
 }
+
 
 });
 
