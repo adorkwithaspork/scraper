@@ -13,7 +13,11 @@ var app = express();
 // REQUIRE ALL MODELS
 var db = require("./models");
 // Configure middleware
+const PORT = process.env.PORT || 3000;
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Use body-parser for handling form submissions
@@ -27,9 +31,9 @@ app.use(express.static("public"));
 // mongoose.Promise = Promise;
 // mongoose.connect(MONGODB_URI);
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scraper", {
-  useNewUrlParser: true
-});
+// mongoose.connect("mongodb://localhost/scraper", {
+//   useNewUrlParser: true
+// });
 
 //ROUTES
 
