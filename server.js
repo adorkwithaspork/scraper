@@ -6,6 +6,7 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var axios = require("axios");
+var path = require("path");
 
 //Initialize express server
 var app = express();
@@ -27,15 +28,12 @@ app.use(bodyParser.urlencoded({
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-// mongoose.Promise = Promise;
-// mongoose.connect(MONGODB_URI);
-// Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/scraper", {
-//   useNewUrlParser: true
-// });
 
 //ROUTES
+
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, "./public/index.html"));
+});
 
 //make a get route to scrape from the NYtimes website
 app.get("/scrape", function (req, res) {
