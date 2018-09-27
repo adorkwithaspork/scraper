@@ -31,9 +31,9 @@ app.use(express.static("public"));
 
 //ROUTES
 
-app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, "./public/index.html"));
-});
+// app.get('/', function(req, res){
+//   res.sendFile(path.join(__dirname, "./public/index.html"));
+// });
 
 //make a get route to scrape from the NYtimes website
 app.get("/scrape", function (req, res) {
