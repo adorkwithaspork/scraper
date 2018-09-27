@@ -3,7 +3,7 @@ $( window ).on( "load", function() {
  getJ();
 });
 
-$("#scrapebtn" ).on( "click", function(event) {
+$("#scrapebtn").on( "click", function(event) {
   event.preventDefault();
   $.ajax({
     method: "GET",

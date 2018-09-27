@@ -16,7 +16,7 @@ var db = require("./models");
 // Configure middleware
 const PORT = process.env.PORT || 3000;
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || ("mongodb://localhost/scraper", { useNewUrlParser: true });
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 // Use morgan logger for logging requests
