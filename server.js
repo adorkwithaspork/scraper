@@ -14,11 +14,11 @@ var app = express();
 // REQUIRE ALL MODELS
 var db = require("./models");
 // Configure middleware
-// var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_86k0vlt6:dpukep8jnddetf7np0hq9uuqkv@ds115753.mlab.com:15753/heroku_86k0vlt6";
+// Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI,{ useNewUrlParser: true });
+mongoose.connect("mongodb://heroku_86k0vlt6:dpukep8jnddetf7np0hq9uuqkv@ds115753.mlab.com:15753/heroku_86k0vlt6", { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 // Use morgan logger for logging requests
 app.use(logger("dev"));
@@ -124,6 +124,6 @@ app.post("/articles/:id", function(req, res) {
 
 
 
-app.listen(3000, function () {
-  console.log("App running on port 3000!");
+app.listen(PORT, function () {
+  console.log("App running on port" + PORT);
 });
