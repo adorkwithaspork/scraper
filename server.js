@@ -14,7 +14,7 @@ var app = express();
 // REQUIRE ALL MODELS
 var db = require("./models");
 // Configure middleware
-var PORT = process.env.PORT || 3000;
+// var PORT = process.env.PORT || 3000;
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_86k0vlt6:dpukep8jnddetf7np0hq9uuqkv@ds115753.mlab.com:15753/heroku_86k0vlt6";
 mongoose.Promise = Promise;
